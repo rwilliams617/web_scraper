@@ -6,11 +6,17 @@ function userEmail() {
   var email = prompt ("Please enter your email address");
 
   if(email.toLowerCase() == EMAIL_REGEX) 
-   return true;
+   return email;
   {
    alert("You have entered an invalid email.");
    return false;
   }
+}
+
+function domainName() {
+  var email = userEmail();
+  var domain = email.toString().replace(/.*@/, ""); 
+  return domain;
 }
  
 // Create request to scrape website
