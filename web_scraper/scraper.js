@@ -23,23 +23,28 @@ function domainName() {
 // Use Cheerio to load homepage
 
 // var website = 'http://www.' + domainName(); - was getting 'prompt undefined error had to hardcode url as workaround'
-  var website = 'http://www.' + 'canddi.com';
-  var request = require('request');
+var website = 'http://www.' + 'canddi.com';
+var request = require('request');
 
-  request(website, function (error, response, body) {
-    if(error) {
-      console.log('Error:', error); // Print the error if one occurred 
-    }
+request(website, function (error, response, body) {
+  if(error) {
+    console.log('Error:', error); // Print the error if one occurred 
+  }
 
-      console.log('Status Code:', response && response.statusCode); // Print the response status code if a response was received
+    console.log('Status Code:', response && response.statusCode); // Print the response status code if a response was received
 
-    if(response.statusCode === 200) {
-      var cheerio = require('cheerio');
-      $ = cheerio.load(body);
-      console.log('Body:', body); // Print the HTML for Canddi.com homepage.     
-    }
-  });
+  if(response.statusCode === 200) {
+    var cheerio = require('cheerio');
+    var $ = cheerio.load(body);
+
+    console.log('Body:', body); // Print the HTML for Canddi.com homepage. 
+  }
+});
 
 // Use Knwl to parse the data to retrieve company info, store in array
+var Knwl = require('knwl.js')  
+var knwlInstance = new Knwl('english');
+
+
 
 // Print data to screen
