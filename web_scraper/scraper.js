@@ -37,7 +37,7 @@ request(website, function (error, response, body) {
     var cheerio = require('cheerio');
     var $ = cheerio.load(body);
     console.log($('footer').text());
-    
+
     $('a').each(function() {
       var text = $(this).text();
       var link = $(this).attr('href');
@@ -47,9 +47,27 @@ request(website, function (error, response, body) {
 });
 
 // Use Knwl to parse the data to retrieve company info, store in array
-var Knwl = require('knwl.js')  
-var knwlInstance = new Knwl('english');
+function rgCompanyInfo() {
+  var Knwl = require('knwl.js')  
+  var knwlInstance = new Knwl('english');
 
+  knwlInstance.register('phones', require('knwl.js/default_plugins/phones.js'));
 
+  knwlInstance.init("161 414 1080");
+  var phones = knwlInstance.get('phones');
+
+  console.log(phones);
+}
+
+// function findCanddiLinks() {
+//   var Knwl = require('knwl.js')  
+//   var knwlInstance = new Knwl('english');
+//   knwlInstance.register('links', require('knwl.js/default_plugins/links.js'));
+//   knwlInstance.init("not understanding how to pass Cheerio output to knwlInstance dynamically without hardcoding it");
+//   var links = knwlInstance.get('links');
+//   var results = [];
+//   console.log(results);
+// }
 
 // Print data to screen
+console.log(rgCompanyInfo());
