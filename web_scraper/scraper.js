@@ -33,6 +33,7 @@ request(website, function (error, response, body) {
 
   console.log('Status Code:', response && response.statusCode); // Print the response status code if a response was received
 
+// Use Knwl to parse the data to retrieve company info, store in array
   if(response.statusCode === 200) {
     var cheerio = require('cheerio');
     var $ = cheerio.load(body);
@@ -42,32 +43,20 @@ request(website, function (error, response, body) {
       var text = $(this).text();
       var link = $(this).attr('href');
       console.log(text + link);
+
+      function rgCompanyLinks() {
+        var Knwl = require('knwl.js')  
+        var knwlInstance = new Knwl('english');
+
+        knwlInstance.register('links', require('knwl.js/default_plugins/links.js'));
+
+        knwlInstance.init(link);
+        var links = knwlInstance.get('links');
+
+        return(links);
+      }
+// Print data to screen
+        console.log(rgCompanyLinks());
     });
   };
 });
-
-// Use Knwl to parse the data to retrieve company info, store in array
-function rgCompanyInfo() {
-  var Knwl = require('knwl.js')  
-  var knwlInstance = new Knwl('english');
-
-  knwlInstance.register('phones', require('knwl.js/default_plugins/phones.js'));
-
-  knwlInstance.init("161 414 1080");
-  var phones = knwlInstance.get('phones');
-
-  console.log(phones);
-}
-
-// function findCanddiLinks() {
-//   var Knwl = require('knwl.js')  
-//   var knwlInstance = new Knwl('english');
-//   knwlInstance.register('links', require('knwl.js/default_plugins/links.js'));
-//   knwlInstance.init("not understanding how to pass Cheerio output to knwlInstance dynamically without hardcoding it");
-//   var links = knwlInstance.get('links');
-//   var results = [];
-//   console.log(results);
-// }
-
-// Print data to screen
-console.log(rgCompanyInfo());
