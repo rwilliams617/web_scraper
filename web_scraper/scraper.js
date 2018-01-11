@@ -31,14 +31,19 @@ request(website, function (error, response, body) {
     console.log('Error:', error); // Print the error if one occurred 
   }
 
-    console.log('Status Code:', response && response.statusCode); // Print the response status code if a response was received
+  console.log('Status Code:', response && response.statusCode); // Print the response status code if a response was received
 
   if(response.statusCode === 200) {
     var cheerio = require('cheerio');
     var $ = cheerio.load(body);
-
-    console.log('Body:', body); // Print the HTML for Canddi.com homepage. 
-  }
+    console.log($('footer').text());
+    
+    $('a').each(function() {
+      var text = $(this).text();
+      var link = $(this).attr('href');
+      console.log(text + link);
+    });
+  };
 });
 
 // Use Knwl to parse the data to retrieve company info, store in array
