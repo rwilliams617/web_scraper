@@ -23,7 +23,7 @@ function domainName() {
 // Use Cheerio to load homepage
 
 // var website = 'http://www.' + domainName(); - was getting 'prompt undefined error had to hardcode url as workaround'
-var website = 'http://www.' + 'canddi.com';
+var website = 'http://www.' + 'canddi.com/contact/';
 var request = require('request');
 
 request(website, function (error, response, body) {
@@ -42,7 +42,25 @@ request(website, function (error, response, body) {
     $('a').each(function() {
       var text = $(this).text();
       var link = $(this).attr('href');
-      console.log(text + link);
+
+        if(link === "tel:+44 161 414 1080" && "^(\(?\+?[0-9]*\)?)?[0-9_\- \(\)]*$") {
+          var phone = "^\+?[1-9]\d{1,14}$"; //E.164 general format for international telephone numbers regex
+          console.log(phone);
+          return phone;
+
+      function rgCompanyPhones() {
+        var Knwl = require('knwl.js')  
+        var knwlInstance = new Knwl('english');
+
+        knwlInstance.register('phones', require('knwl.js/default_plugins/phones.js'));
+
+        knwlInstance.init(phone); 
+        var phones = knwlInstance.get('phones');
+
+        return(phones);
+      }
+      console.log(rgCompanyPhones()); 
+      }
 
       function rgCompanyLinks() {
         var Knwl = require('knwl.js')  
@@ -56,7 +74,8 @@ request(website, function (error, response, body) {
         return(links);
       }
 // Print data to screen
-        console.log(rgCompanyLinks());
+      console.log(rgCompanyLinks());
+  
     });
   };
 });
