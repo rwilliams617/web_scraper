@@ -46,7 +46,7 @@ request(website, function (error, response, body) {
     }
     console.log(extractContent());
 
-//to-do create function where we take string objects in extractContent() and trim/split into one string
+//to-do create function where we take string objects in extractContent() and trim/split into one string to be parsed using Knwl.js
 
 
   }
